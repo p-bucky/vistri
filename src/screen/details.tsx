@@ -27,6 +27,11 @@ const Requirements = () => {
   return (
     <div className="border border-gray-200 mt-4 p-3 rounded-md">
       <h2 className="text-lg font-semibold">Requirements</h2>
+      <p className="text-xs text-red-400 mb-2">
+        If you don't meet these requirements, please do not apply as your
+        application will be rejected. We carefully review each account for this
+        task.
+      </p>
       <div className="flex flex-wrap gap-2 mt-2">
         <Badge variant="secondary">Instagram Followers: 2K+</Badge>
         <Badge variant="secondary">Location: PAN India</Badge>
