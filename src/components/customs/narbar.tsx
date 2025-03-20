@@ -12,7 +12,7 @@ import { SidebarTrigger } from "../ui/sidebar";
 
 export const Navbar = () => {
   return (
-    <div className="flex justify-between items-center py-4 border-b border-gray-100 px-6 sticky top-0 backdrop-blur-sm">
+    <div className="flex justify-between items-center py-4 border-b border-gray-100 px-6 sticky top-0 backdrop-blur-sm bg-white">
       <div className="flex items-center gap-1">
         <SidebarTrigger />
         <div className="flex items-center">

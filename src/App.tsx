@@ -5,8 +5,8 @@ import { HomeScreen } from "./screen/home";
 
 function App() {
   return (
-    <div className="flex h-full w-full items-center justify-center ">
-      <div className="h-full w-full max-w-[500px] flex-col items-center gap-6">
+    <div className="flex h-full w-full items-center justify-center bg-primary/5">
+      <div className="h-full w-full flex-col items-center gap-6">
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/details" element={<DetailsScreen />} />
