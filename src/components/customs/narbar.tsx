@@ -12,15 +12,15 @@ import { SidebarTrigger } from "../ui/sidebar";
 
 export const Navbar = () => {
   return (
-    <div className="flex justify-between items-center py-4 border-b border-gray-200 px-6 sticky top-0 backdrop-blur-sm">
+    <div className="flex justify-between items-center py-4 border-b border-gray-100 px-6 sticky top-0 backdrop-blur-sm">
       <div className="flex items-center gap-1">
         <SidebarTrigger />
-          <div className="flex items-center">
-            <p className="text-lg font-semibold italic bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
-              Vistrti
-            </p>
-            <WindIcon className="w-5 h-5 text-blue-500" />
-          </div>
+        <div className="flex items-center">
+          <p className="text-lg font-semibold italic bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
+            Vistrti
+          </p>
+          <WindIcon className="w-5 h-5 text-blue-500" />
+        </div>
       </div>
       <Menubar>
         <MenubarMenu>
