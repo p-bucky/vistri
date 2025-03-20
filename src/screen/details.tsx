@@ -3,10 +3,11 @@ import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { Checkbox } from "../components/ui/checkbox";
 import { Label } from "../components/ui/label";
+import { Navbar } from "../components/customs/narbar";
 
 const Header = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-2">
+    <div className="flex flex-col items-center justify-center gap-2 mt-4">
       <div className="flex items-center gap-2">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4bdp4olgeh9Md0yG4_HSvISyNB259ow-g7Q&s"
@@ -212,7 +213,7 @@ const ContentGuidelines = () => {
 
 const Action = () => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-gray-50 p-4">
+    <div className="w-full max-w-[500px] bg-gray-50 p-4">
       <div className="flex items-center space-x-2 my-1">
         <Checkbox id="terms" />
         <Label htmlFor="terms">Accept terms and conditions</Label>
@@ -224,13 +225,16 @@ const Action = () => {
 
 export const DetailsScreen = () => {
   return (
-    <div className="px-6 pb-32">
-      <Header />
-      <Requirements />
-      <Task />
-      <Schedule />
-      <Payment />
-      <ContentGuidelines />
+    <div>
+      <Navbar />
+      <div className="px-6 pb-32">
+        <Header />
+        <Requirements />
+        <Task />
+        <Schedule />
+        <Payment />
+        <ContentGuidelines />
+      </div>
       <Action />
     </div>
   );
