@@ -10,7 +10,6 @@ import {
 } from "../components/ui/card";
 import { Navbar } from "../components/customs/narbar";
 import { campaignData } from "../mock-data/campaigns";
-import { EyeIcon } from "lucide-react";
 import {
   CampaignType,
   CampaignEligibilityType,
