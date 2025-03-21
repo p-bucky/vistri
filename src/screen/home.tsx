@@ -46,7 +46,7 @@ const ListCard = ({
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-2">
-          <p className="text-sm text-black-600">Requirements:</p>
+          <p className="text-sm text-black-600 font-semibold">Requirements:</p>
           <div className="flex flex-wrap gap-2">
             {requirements.eligibility.map(
               (eligibility: CampaignEligibilityType) => (
@@ -58,7 +58,7 @@ const ListCard = ({
           </div>
 
           <div className="flex flex-col gap-2">
-            <p className="text-sm text-black-600">Task:</p>
+            <p className="text-sm text-black-600 font-semibold">Tasks:</p>
             <div className="flex flex-wrap gap-2">
               {requirements.content.map((content: CampaignContentType) => (
                 <Badge variant="secondary">
@@ -70,14 +70,16 @@ const ListCard = ({
           <div className="flex justify-end items-end mt-4">
             <Badge
               variant="default"
-              className="bg-green-100/50 text-green-700 text-lg mr-2"
+              className="bg-green-100/50 text-green-700 text-sm sm:text-lg mr-2"
             >
               {requirements.payment.amount}
             </Badge>
             <Link to={`/details/${id}`}>
-              <Button variant="default" className="flex items-center gap-2">
-                <EyeIcon className="w-4 h-4" />
-                View More
+              <Button
+                variant="default"
+                className="flex items-center gap-2 text-sm sm:text-lg"
+              >
+                View
               </Button>
             </Link>
           </div>
