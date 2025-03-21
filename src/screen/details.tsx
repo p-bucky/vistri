@@ -15,7 +15,11 @@ import { LocationIcon } from "../assets/icons/location";
 import { AccountIcon } from "../assets/icons/account";
 import { VideoIcon } from "../assets/icons/video";
 import { ImageIcon } from "../assets/icons/image";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { campaignData } from "../mock-data/campaigns";
+import { CampaignType } from "../types/types";
+import { useState } from "react";
 
 type HeaderProps = {
   title: string;
@@ -36,16 +40,18 @@ const Header = ({
     <div className="border border-gray-200 mt-4 p-4 rounded-lg bg-white">
       <div className="flex flex-col items-center justify-center gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full overflow-hidden">
+          <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-100 p-1">
             <img
               src={image}
               alt={title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
           </div>
           <div>
             <h1 className="text-xl font-bold">{title}</h1>
-            <p className="text-xs text-gray-600">{brand_type}</p>
+            <Badge variant="secondary" className="text-xs">
+              {brand_type}
+            </Badge>
           </div>
         </div>
         <div className="text-center">
@@ -158,60 +164,60 @@ const Requirements: React.FC<RequirementsProps> = ({ requirements }) => {
   );
 };
 
-const Schedule = () => {
-  return (
-    <div className="border border-gray-200 mt-4 p-4 rounded-lg bg-white">
-      <h2 className="text-lg font-bold mb-4">Campaign Schedule</h2>
-      <div className="flex flex-col gap-3">
-        <div className="bg-gray-50 p-3 rounded-lg">
-          <div className="flex items-center gap-3">
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
-            <div>
-              <div className="font-medium text-sm">Campaign Starts</div>
-              <div className="text-xs text-gray-600">20th March 2025</div>
-            </div>
-          </div>
-        </div>
+// const Schedule = () => {
+//   return (
+//     <div className="border border-gray-200 mt-4 p-4 rounded-lg bg-white">
+//       <h2 className="text-lg font-bold mb-4">Campaign Schedule</h2>
+//       <div className="flex flex-col gap-3">
+//         <div className="bg-gray-50 p-3 rounded-lg">
+//           <div className="flex items-center gap-3">
+//             <div className="w-3 h-3 rounded-full bg-green-500"></div>
+//             <div>
+//               <div className="font-medium text-sm">Campaign Starts</div>
+//               <div className="text-xs text-gray-600">20th March 2025</div>
+//             </div>
+//           </div>
+//         </div>
 
-        <div className="bg-gray-50 p-3 rounded-lg">
-          <div className="flex items-center gap-3">
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div>
-              <div className="font-medium text-sm">Submission Deadline</div>
-              <div className="text-xs text-gray-600">17th March 2025</div>
-            </div>
-          </div>
-        </div>
+//         <div className="bg-gray-50 p-3 rounded-lg">
+//           <div className="flex items-center gap-3">
+//             <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+//             <div>
+//               <div className="font-medium text-sm">Submission Deadline</div>
+//               <div className="text-xs text-gray-600">17th March 2025</div>
+//             </div>
+//           </div>
+//         </div>
 
-        <div className="bg-gray-50 p-3 rounded-lg">
-          <div className="flex items-center gap-3">
-            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-            <div>
-              <div className="font-medium text-sm">Campaign Ends</div>
-              <div className="text-xs text-gray-600">20th March 2025</div>
-            </div>
-          </div>
-        </div>
-      </div>
+//         <div className="bg-gray-50 p-3 rounded-lg">
+//           <div className="flex items-center gap-3">
+//             <div className="w-3 h-3 rounded-full bg-red-500"></div>
+//             <div>
+//               <div className="font-medium text-sm">Campaign Ends</div>
+//               <div className="text-xs text-gray-600">20th March 2025</div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
 
-      <div className="mt-4 border-t pt-4">
-        <h3 className="text-base font-semibold mb-2">
-          Content Duration Policy
-        </h3>
-        <div className="bg-gray-50 p-3 rounded-lg">
-          <p className="text-xs text-gray-600 mb-2">
-            Keep posts live for the required duration. Removing posts early or
-            posting fake content will result in{" "}
-            <span className="font-bold text-red-500">account suspension</span>.
-          </p>
-          <Badge variant="default" className="bg-green-500 text-white text-xs">
-            3 Days Minimum
-          </Badge>
-        </div>
-      </div>
-    </div>
-  );
-};
+//       <div className="mt-4 border-t pt-4">
+//         <h3 className="text-base font-semibold mb-2">
+//           Content Duration Policy
+//         </h3>
+//         <div className="bg-gray-50 p-3 rounded-lg">
+//           <p className="text-xs text-gray-600 mb-2">
+//             Keep posts live for the required duration. Removing posts early or
+//             posting fake content will result in{" "}
+//             <span className="font-bold text-red-500">account suspension</span>.
+//           </p>
+//           <Badge variant="default" className="bg-green-500 text-white text-xs">
+//             3 Days Minimum
+//           </Badge>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 type ContentGuidelinesProps = {
   guidelines: {
@@ -301,91 +307,18 @@ const ContentGuidelines = ({ guidelines }: ContentGuidelinesProps) => {
 };
 
 export const DetailsScreen = () => {
-  const details = {
-    title: "Haldiram's and Company",
-    description:
-      "Haldiram's launching a new biscuit in the market and we are targeting delhi market.",
-    brand_type: "Food & Beverages",
-    websitelink: "https://www.haldirams.com/",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4bdp4olgeh9Md0yG4_HSvISyNB259ow-g7Q&s",
-    requirements: {
-      payment: {
-        amount: "$100",
-      },
-      eligibility: [
-        {
-          type: "minimum_followers",
-          label: "Minimum Followers",
-          value: "2000",
-        },
-        {
-          type: "location",
-          label: "Location",
-          value: "Available across PAN India",
-        },
-        {
-          type: "account_type",
-          label: "Account Type",
-          value: "Beauty, Fashion, Lifestyle, Food, Travel, etc.",
-        },
-      ],
-      content: [
-        {
-          type: "reel",
-          label: "Reel",
-          value: "3",
-        },
-        {
-          type: "post",
-          label: "Post",
-          value: "2",
-        },
-      ],
-    },
-    content_guidelines: [
-      {
-        type: "reel",
-        label: "Reel Video",
-        caption:
-          "Share your authentic experience with Haldiram's new biscuit launch! Highlight the unique flavors and your favorite moments enjoying this delicious treat.",
-        hashtags: [
-          "#HaldiramsBiscuit",
-          "#HaldiramsNewLaunch",
-          "#DeliciousTreats",
-        ],
-        mentions: ["@haldirams_snacks", "@haldirams.official"],
-        link: "https://www.instagram.com/haldirams_snacks/",
-      },
-      {
-        type: "story",
-        label: "Instagram Story",
-        caption:
-          "Excited to try Haldiram's latest biscuit! Join me for a quick taste test and first impressions of this delicious new treat.",
-        hashtags: [
-          "#HaldiramsBiscuit",
-          "#HaldiramsNewLaunch",
-          "#DeliciousTreats",
-        ],
-        mentions: ["@haldirams_snacks", "@haldirams.official"],
-        link: "https://www.instagram.com/haldirams_snacks/",
-      },
-      {
-        type: "image",
-        label: "Instagram Post",
-        caption:
-          "Introducing the newest addition to Haldiram's family - their delightful biscuits! Perfect with your evening chai or as a quick snack. The perfect blend of traditional taste and modern flavors.",
-        hashtags: [
-          "#HaldiramsBiscuit",
-          "#HaldiramsNewLaunch",
-          "#DeliciousTreats",
-          "#FoodieLife",
-        ],
-        mentions: ["@haldirams_snacks", "@haldirams.official"],
-        link: "https://www.instagram.com/haldirams_snacks/",
-      },
-    ],
-  };
+  const { id } = useParams();
+  const [details, setDetails] = useState<CampaignType | null>(null);
+  useEffect(() => {
+    const details = campaignData.find((item: CampaignType) => item.id === id);
+    if (details) {
+      setDetails(details);
+    }
+  }, [id]);
+
+  if (!details) {
+    return <div>No details found</div>;
+  }
 
   return (
     <div>

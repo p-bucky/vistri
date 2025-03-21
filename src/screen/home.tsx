@@ -9,52 +9,76 @@ import {
   CardDescription,
 } from "../components/ui/card";
 import { Navbar } from "../components/customs/narbar";
+import { campaignData } from "../mock-data/campaigns";
+import { EyeIcon } from "lucide-react";
+import {
+  CampaignType,
+  CampaignEligibilityType,
+  CampaignContentType,
+} from "../types/types";
 
-const ListCard = () => {
+const ListCard = ({
+  title,
+  description,
+  image,
+  requirements,
+  id,
+}: CampaignType) => {
   return (
     <Card className="mt-4 gap-2">
       <CardHeader>
-        <CardTitle>
-          <Link
-            to="https://haldiram.com"
-            target="_blank"
-            className="flex items-center gap-2"
-          >
+        <CardTitle className="flex items-center gap-2">
+          <div className="w-10 h-10 rounded-full overflow-hidden bg-primary/10">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4bdp4olgeh9Md0yG4_HSvISyNB259ow-g7Q&s"
-              alt="Haldiram"
-              className="w-10 h-10"
+              src={image}
+              alt={title + " image"}
+              className="w-10 h-10 object-contain"
+              loading="lazy"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src =
+                  "https://placehold.co/100x100";
+              }}
             />
-            Haldiram's and Company
-          </Link>
+          </div>
+          {title}
         </CardTitle>
-        <CardDescription>
-          Haldiram's launching a new biscuit in the market and we are targeting
-          delhi market.
-        </CardDescription>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-2">
-          <p className="text-sm text-gray-500">Requirements:</p>
+          <p className="text-sm text-black-600">Requirements:</p>
           <div className="flex flex-wrap gap-2">
-            <Badge variant="secondary">Instagram Followers: 2K+</Badge>
-            <Badge variant="secondary">Location: PAN India</Badge>
-            <Badge variant="secondary">
-              Account Type: Food Blog, Health Blog, etc.
-            </Badge>
+            {requirements.eligibility.map(
+              (eligibility: CampaignEligibilityType) => (
+                <Badge variant="secondary">
+                  {`${eligibility.label}: ${eligibility.value}`}
+                </Badge>
+              )
+            )}
           </div>
 
           <div className="flex flex-col gap-2">
-            <p className="text-sm text-gray-500">Task:</p>
-            <Badge variant="secondary">3 Reel and 2 Post</Badge>
+            <p className="text-sm text-black-600">Task:</p>
+            <div className="flex flex-wrap gap-2">
+              {requirements.content.map((content: CampaignContentType) => (
+                <Badge variant="secondary">
+                  {`${content.label}: ${content.value}`}
+                </Badge>
+              ))}
+            </div>
           </div>
-          <div className="flex justify-between items-end">
-            <p className="text-sm text-primary">
-              Payment:
-              <span className="text-lg font-semibold ml-1">$10</span>
-            </p>
-            <Link to="/details">
-              <Button>View Details</Button>
+          <div className="flex justify-end items-end mt-4">
+            <Badge
+              variant="default"
+              className="bg-green-100/50 text-green-700 text-lg mr-2"
+            >
+              {requirements.payment.amount}
+            </Badge>
+            <Link to={`/details/${id}`}>
+              <Button variant="default" className="flex items-center gap-2">
+                <EyeIcon className="w-4 h-4" />
+                View More
+              </Button>
             </Link>
           </div>
         </div>
@@ -68,10 +92,8 @@ export const HomeScreen = () => {
     <div>
       <Navbar />
       <div className="px-6">
-        {[
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        ].map((item) => (
-          <ListCard key={item} />
+        {campaignData.map((item: CampaignType) => (
+          <ListCard key={item.id} {...item} />
         ))}
       </div>
     </div>

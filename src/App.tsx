@@ -9,7 +9,7 @@ function App() {
       <div className="h-full w-full flex-col items-center gap-6">
         <Routes>
           <Route path="/" element={<HomeScreen />} />
-          <Route path="/details" element={<DetailsScreen />} />
+          <Route path="/details/:id" element={<DetailsScreen />} />
         </Routes>
       </div>
     </div>
